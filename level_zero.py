@@ -5,12 +5,12 @@ from __future__ import print_function
 __version__ = '1.0.0'
 __author__ = 'Abien Fred Agarap'
 
-from utils.config import use_config_1
-from utils.markers import *
 import os
 import random
 import shutil
 import time
+from utils.config import use_config_1
+from utils.markers import *
 
 random.seed(42)
 columns = shutil.get_terminal_size().columns
