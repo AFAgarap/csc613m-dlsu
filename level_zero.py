@@ -17,7 +17,6 @@ random.seed(42) # solved in 24 moves
 # random.seed(8) # solved in 70 moves
 columns = shutil.get_terminal_size().columns
 
-# miner_row, miner_col = 0, 0
 success = False
 move = 0
 
@@ -40,12 +39,15 @@ def setup_environment(miner, cells=8):
     return grid
 
 
-def print_grid(new_miner_row, new_miner_col, miner):
-    grid[new_miner_row][new_miner_col] = miner.marker
+def print_grid(miner):
+
+    grid[miner.row][miner.col] = miner.marker
+
     os.system('figlet -c -w {} Miner'.format(columns))
     print('CSC613M Introduction to Intelligent Systems'.center(columns))
     print('DLSU 3rd Trimester A.Y. 2018-2019'.center(columns))
     print()
+
     for row in grid:
         row_text = ''
         for cell in row:
@@ -63,46 +65,16 @@ while success == False:
     miner.rotate()
     move += 1
 
-    old_miner_row, old_miner_col = miner.row, miner.col
+    grid[miner.row][miner.col] = '*'
 
     miner.forward()
     move += 1
-#    rotate = random.randint(1, 4)
-#
-#    if rotate == 1:
-#        MINER = FACE_SOUTH
-#    elif rotate == 2:
-#        MINER = FACE_EAST
-#    elif rotate == 3:
-#        MINER = FACE_WEST
-#    elif rotate == 4:
-#        MINER = FACE_NORTH
 
-#    old_miner_row, old_miner_col = miner_row, miner_col
-
-
-#    if MINER == FACE_SOUTH and miner_row >= 0 and miner_row < 7:
-#        old_miner_row = miner_row
-#        miner_row += 1
-#        move += 1
-#    elif MINER == FACE_EAST and miner_col >= 0 and miner_col < 7:
-#        old_miner_col = miner_col
-#        miner_col += 1
-#        move += 1
-#    elif MINER == FACE_WEST and miner_col > 0 and miner_col > -1:
-#        old_miner_col = miner_col
-#        miner_col -= 1
-#        move += 1
-#    elif MINER == FACE_NORTH and miner_row > 0 and miner_row > -1:
-#        old_miner_row = miner_row
-#        miner_row -= 1
-#        move += 1
-
-    time.sleep(0.5)
+    time.sleep(5e-1)
 
     os.system('clear')
-    grid[old_miner_row][old_miner_col] = '*'
-    print_grid(miner.row, miner.col, miner)
+
+    print_grid(miner)
     print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}'.format(miner.row, miner.col, gold_row, gold_col, move))
     print()
 
@@ -112,11 +84,8 @@ while success == False:
     elif [miner.row, miner.col] in pit_xy:
         os.system('clear')
         move = 0
-#        MINER = FACE_SOUTH
         miner = Miner(row=0, col=0)
         grid = setup_environment(miner)
-#        miner_row, miner_col = 0, 0
-#        grid[miner_row][miner_col] = miner.marker
-        print_grid(miner.row, miner.col, miner)
+        print_grid(miner)
         print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}'.format(miner.row, miner.col, gold_row, gold_col, move))
 
