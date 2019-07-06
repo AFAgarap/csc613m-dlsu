@@ -34,41 +34,6 @@ columns = shutil.get_terminal_size().columns
 
 success = False
 move = 0
-# pit_xy, beacon_xy, gold_row, gold_col = use_config_1()
-
-
-# def setup_environment(miner, cells=8):
-#
-#     grid = [['*' for _ in range(cells)] for _ in range(cells)]
-#
-#     for coordinates in pit_xy:
-#         grid[coordinates[0]][coordinates[1]] = PIT
-#
-#     for coordinates in beacon_xy:
-#         grid[coordinates[0]][coordinates[1]] = BEACON
-#
-#     grid[gold_row][gold_col] = GOLD
-#     grid[miner.row][miner.col] = miner.marker
-#
-#     return grid
-#
-#
-# def print_grid(miner):
-#
-#     grid[miner.row][miner.col] = miner.marker
-#
-#     os.system('figlet -c -w {} Miner'.format(columns))
-#     print('CSC613M Introduction to Intelligent Systems'.center(columns))
-#     print('DLSU 3rd Trimester A.Y. 2018-2019'.center(columns))
-#     print()
-#
-#     for row in grid:
-#         row_text = ''
-#         for cell in row:
-#             row_text += cell + ' '
-#         print(row_text.center(columns), end='')
-#         print()
-
 
 miner = Miner(row=0, col=0)
 
