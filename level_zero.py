@@ -29,7 +29,7 @@ import time
 
 
 random.seed(42)  # solved in 24 moves
-# random.seed(8) # solved in 70 moves
+# random.seed(8)  # solved in 70 moves
 columns = shutil.get_terminal_size().columns
 
 success = False
