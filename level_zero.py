@@ -5,8 +5,8 @@ from __future__ import print_function
 __version__ = '1.0.0'
 __author__ = 'Abien Fred Agarap'
 
-from config import use_config_1
-from markers import *
+from utils.config import use_config_1
+from utils.markers import *
 import os
 import random
 import shutil
