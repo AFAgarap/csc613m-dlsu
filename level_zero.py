@@ -5,6 +5,7 @@ from __future__ import print_function
 __version__ = '1.0.0'
 __author__ = 'Abien Fred Agarap'
 
+from markers import *
 import os
 import random
 import shutil
@@ -12,11 +13,6 @@ import time
 
 random.seed(42)
 columns = shutil.get_terminal_size().columns
-
-pit = 'P'
-gold = 'G'
-beacon = 'B'
-miner = 'v'
 
 miner_row, miner_col = 0, 0
 success = False
@@ -29,9 +25,9 @@ gold_row, gold_col = 4, 4
 # config 1
 
 # config 2
-#pit_xy = [[21, 0], [21, 1], [20, 2]]
-#beacon_xy = [[22, 0], [31, 1]]
-#gold_row, gold_col = 22, 1
+# pit_xy = [[21, 0], [21, 1], [20, 2]]
+# beacon_xy = [[22, 0], [31, 1]]
+# gold_row, gold_col = 22, 1
 # config 2
 
 def setup_environment(cells=8):
@@ -39,19 +35,19 @@ def setup_environment(cells=8):
     grid = [['*' for _ in range(cells)] for _ in range(cells)]
 
     for coordinates in pit_xy:
-        grid[coordinates[0]][coordinates[1]] = pit
+        grid[coordinates[0]][coordinates[1]] = PIT
 
     for coordinates in beacon_xy:
-        grid[coordinates[0]][coordinates[1]] = beacon
+        grid[coordinates[0]][coordinates[1]] = BEACON
 
-    grid[gold_row][gold_col] = gold
-    grid[miner_row][miner_col] = miner
+    grid[gold_row][gold_col] = GOLD
+    grid[miner_row][miner_col] = MINER
 
     return grid
 
 
 def print_grid(new_miner_row, new_miner_col):
-    grid[new_miner_row][new_miner_col] = miner
+    grid[new_miner_row][new_miner_col] = MINER
     os.system('figlet -c -w {} Miner'.format(columns))
     print('CSC613M Introduction to Intelligent Systems'.center(columns))
     print('DLSU 3rd Trimester A.Y. 2018-2019'.center(columns))
@@ -71,31 +67,31 @@ while success == False:
     rotate = random.randint(1, 4)
 
     if rotate == 1:
-        miner = 'v'
+        MINER = FACE_SOUTH
     elif rotate == 2:
-        miner = '>'
+        MINER = FACE_EAST
     elif rotate == 3:
-        miner = '<'
+        MINER = FACE_WEST
     elif rotate == 4:
-        miner = '^'
+        MINER = FACE_NORTH
 
     move += 1
 
     old_miner_row, old_miner_col = miner_row, miner_col
 
-    if miner == 'v' and miner_row >= 0 and miner_row < 7:
+    if MINER == FACE_SOUTH and miner_row >= 0 and miner_row < 7:
         old_miner_row = miner_row
         miner_row += 1
         move += 1
-    elif miner == '>' and miner_col >= 0 and miner_col < 7:
+    elif MINER == FACE_EAST and miner_col >= 0 and miner_col < 7:
         old_miner_col = miner_col
         miner_col += 1
         move += 1
-    elif miner == '<' and miner_col > 0 and miner_col > -1:
+    elif MINER == FACE_WEST and miner_col > 0 and miner_col > -1:
         old_miner_col = miner_col
         miner_col -= 1
         move += 1
-    elif miner == '^' and miner_row > 0 and miner_row > -1:
+    elif MINER == FACE_NORTH and miner_row > 0 and miner_row > -1:
         old_miner_row = miner_row
         miner_row -= 1
         move += 1
@@ -114,10 +110,10 @@ while success == False:
     elif [miner_row, miner_col] in pit_xy:
         os.system('clear')
         move = 0
-        miner = 'v'
+        MINER = FACE_SOUTH
         grid = setup_environment()
         miner_row, miner_col = 0, 0
-        grid[miner_row][miner_col] = miner
+        grid[miner_row][miner_col] = MINER
         print_grid(miner_row, miner_col)
         print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}'.format(miner_row, miner_col, gold_row, gold_col, move))
 
