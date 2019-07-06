@@ -23,11 +23,8 @@ from agent import Miner
 from environment import display
 from environment import setup
 import os
-import shutil
 import time
 
-
-columns = shutil.get_terminal_size().columns
 
 success = False
 move = 0
