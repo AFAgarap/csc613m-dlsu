@@ -27,16 +27,17 @@ from utils.markers import FACE_WEST
 
 random.seed(42)
 
+
 class Miner(object):
     def __init__(self, row, col):
         self.row = row
         self.col = col
         self.marker = FACE_SOUTH
 
-    def forward(self):
-        if self.marker == FACE_SOUTH and 0 <= self.row < 7:
+    def forward(self, cells):
+        if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1):
             self.row += 1
-        elif self.marker == FACE_EAST and 0 <= self.col < 7:
+        elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1):
             self.col += 1
         elif self.marker == FACE_WEST and self.col > 0 and self.col > -1:
             self.col -= 1
@@ -54,3 +55,5 @@ class Miner(object):
         elif face == 4:
             self.marker = FACE_NORTH
 
+    def scan(self):
+        pass
