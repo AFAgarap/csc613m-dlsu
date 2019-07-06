@@ -23,33 +23,31 @@ from agent import Miner
 from environment import display
 from environment import setup
 import os
-import random
 import shutil
 import time
 
 
-random.seed(42)  # solved in 24 moves
-# random.seed(8)  # solved in 70 moves
 columns = shutil.get_terminal_size().columns
 
 success = False
 move = 0
+cells = 32
 
 miner = Miner(row=0, col=0)
 
 while not success:
 
-    grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner)
+    grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
 
     miner.rotate()
     move += 1
 
     grid[miner.row][miner.col] = '*'
 
-    miner.forward()
+    miner.forward(cells=cells)
     move += 1
 
-    time.sleep(4e-1)
+    time.sleep(1e-2)
 
     os.system('clear')
 
@@ -64,6 +62,6 @@ while not success:
         os.system('clear')
         move = 0
         miner = Miner(row=0, col=0)
-        grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner)
+        grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
         display(grid, miner)
         print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}'.format(miner.row, miner.col, gold_row, gold_col, move))
