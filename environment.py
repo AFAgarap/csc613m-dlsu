@@ -14,9 +14,10 @@ from utils.markers import PIT
 
 columns = shutil.get_terminal_size().columns
 pit_xy, beacon_xy, gold_row, gold_col = use_config_1()
+# pit_xy, beacon_xy, gold_row, gold_col = use_config_2()
 
 
-def setup(miner, cells=8):
+def setup(miner, cells):
 
     grid = [['*' for _ in range(cells)] for _ in range(cells)]
 
