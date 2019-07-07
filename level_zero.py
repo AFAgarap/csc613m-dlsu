@@ -19,48 +19,66 @@ from __future__ import print_function
 __version__ = '1.0.0'
 __author__ = 'Abien Fred Agarap'
 
+import argparse
 from agent import Miner
 from environment import display
 from environment import setup
 import os
 import time
+from utils.config import get_speed
 
 
-success = False
-move = 0
-cells = 8
-num_fail = 0
-miner = Miner(row=0, col=0, num_rotate=0)
+def parse_args():
+    parser = argparse.ArgumentParser(description='Miner')
+    group = parser.add_argument_group('Arguments')
+    group.add_argument('-c', '--cells', required=False, type=int, default=8,
+            help='the size of the environment')
+    group.add_argument('-x', '--speed', required=False, type=int, default=1,
+            help='the speed of display refresh')
+    arguments = parser.parse_args()
+    return arguments
 
-while not success:
 
-    grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
+def main(arguments):
 
-    miner.rotate()
+    cells = arguments.cells
+    speed = get_speed(arguments.speed)
+    move = 0
+    num_fail = 0
 
-    grid[miner.row][miner.col] = '*'
+    miner = Miner(row=0, col=0, num_rotate=0)
 
-    miner.forward(cells=cells)
-    move += 1
+    while True:
 
-    time.sleep(3e-1)
-
-    os.system('clear')
-
-    display(grid, miner)
-    print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}\nFail\t:\t{}'.format(miner.row,
-        miner.col, gold_row, gold_col, move, miner.num_rotate, num_fail))
-    print()
-
-    if (miner.row == gold_row) and (miner.col == gold_col):
-        print('success in {} moves'.format(move))
-        success = True
-    elif [miner.row, miner.col] in pit_xy:
-        os.system('clear')
-        num_fail += 1
-        move = 0
-        miner = Miner(row=0, col=0, num_rotate=0)
         grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
+        miner.rotate(cells=cells)
+        grid[miner.row][miner.col] = '*'
+        miner.forward(cells=cells)
+        move += 1
+
+        time.sleep(speed)
+
+        os.system('clear')
+
         display(grid, miner)
         print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}\nFail\t:\t{}'.format(miner.row,
             miner.col, gold_row, gold_col, move, miner.num_rotate, num_fail))
+        print()
+
+        if (miner.row == gold_row) and (miner.col == gold_col):
+            print('success in {} moves'.format(move))
+            break
+        elif [miner.row, miner.col] in pit_xy:
+            os.system('clear')
+            num_fail += 1
+            move = 0
+            miner = Miner(row=0, col=0, num_rotate=0)
+            grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
+            display(grid, miner)
+            print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}\nFail\t:\t{}'.format(miner.row,
+                miner.col, gold_row, gold_col, move, miner.num_rotate, num_fail))
+
+
+if __name__ == '__main__':
+    arguments = parse_args()
+    main(arguments)
