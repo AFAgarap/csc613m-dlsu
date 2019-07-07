@@ -29,7 +29,7 @@ import time
 success = False
 move = 0
 cells = 8
-
+num_fail = 0
 miner = Miner(row=0, col=0, num_rotate=0)
 
 while not success:
@@ -48,7 +48,8 @@ while not success:
     os.system('clear')
 
     display(grid, miner)
-    print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}'.format(miner.row, miner.col, gold_row, gold_col, move, miner.num_rotate))
+    print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}\nFail\t:\t{}'.format(miner.row,
+        miner.col, gold_row, gold_col, move, miner.num_rotate, num_fail))
     print()
 
     if (miner.row == gold_row) and (miner.col == gold_col):
@@ -56,9 +57,10 @@ while not success:
         success = True
     elif [miner.row, miner.col] in pit_xy:
         os.system('clear')
+        num_fail += 1
         move = 0
         miner = Miner(row=0, col=0, num_rotate=0)
         grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
         display(grid, miner)
-        print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}'.format(miner.row, miner.col, gold_row, gold_col, move, miner.num_rotate))
-
+        print('miner\t:\t[{}][{}]\ngold\t:\t[{}][{}]\nmoves\t:\t{}\nrotate\t:\t{}\nFail\t:\t{}'.format(miner.row,
+            miner.col, gold_row, gold_col, move, miner.num_rotate, num_fail))
