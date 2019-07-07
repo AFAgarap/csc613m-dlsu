@@ -40,6 +40,7 @@ class Miner(object):
     def forward(self, cells, grid):
         while True:
             self.rotate(cells)
+
             if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
                 self.row += 1
                 break
@@ -52,6 +53,7 @@ class Miner(object):
             elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
                 self.row -= 1
                 break
+
             if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
                (grid[self.row + 1][self.col] == '-' and
                 grid[self.row - 1][self.col] == '-' and
@@ -94,6 +96,7 @@ class Miner(object):
                   (grid[self.row + 1][self.col] == '-' and
                    grid[self.row][self.col - 1] == '-')):
                 return True
+
         self.visited_nodes.append([self.row, self.col])
         self.num_move += 1
 
@@ -114,8 +117,19 @@ class Miner(object):
                 break
         self.num_rotate += 1
 
-    def scan(self):
-        pass
+    def scan(self, cells, grid):
+        if self.row == 0 and self.col < (cells - 1):
+            row_peek, col_peek = None, None
+            row_values = [cell[0] for cell in grid]
+            col_values = [cell[1] for cell in grid]
+            for row_value in row_values:
+                if row_value == PIT or row_value == BEACON:
+                    row_peek = row_value
+                    break
+            for col_value in col_values:
+                if col_value == PIT or col_value == BEACON:
+                    col_peek = col_value
+
 
     def search(self):
         pass
