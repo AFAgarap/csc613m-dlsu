@@ -20,6 +20,16 @@ __version__ = '1.0.0'
 __author__ = 'Abien Fred Agarap'
 
 
+def get_speed(rate):
+    assert 0 <= rate <= 2, 'Expected value for speed : [0 <= speed <= 2], but given {}.'.format(rate)
+    if rate == 0:
+        return 5e-1
+    elif rate == 1:
+        return 3e-1
+    elif rate == 2:
+        return 1e-1
+
+
 def use_config_1():
     pit_xy = [[0, 3], [2, 2], [2, 6], [5, 2]]
     beacon_xy = [[4, 0], [0, 4]]
