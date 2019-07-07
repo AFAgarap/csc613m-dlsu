@@ -21,8 +21,8 @@ __author__ = 'Abien Fred Agarap'
 
 
 def get_speed(rate):
-    assert 0 <= rate <= 3, \
-        'Expected value for speed : [0 <= speed <= 3], \
+    assert -1 <= rate <= 3, \
+        'Expected value for speed : [-1 <= speed <= 3], \
         but given {}.'.format(rate)
     if rate == 0:
         return 5e-1
@@ -32,6 +32,8 @@ def get_speed(rate):
         return 1e-1
     elif rate == 3:
         return 1e-4
+    elif rate == -1:
+        return 0
 
 
 def use_config_1():
