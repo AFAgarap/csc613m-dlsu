@@ -36,7 +36,7 @@ def setup(miner, cells):
 def display(grid, miner, num_fail):
 
     grid[miner.row][miner.col] = miner.marker
-
+    os.system('clear')
     os.system('figlet -c -w {} Miner'.format(columns))
     print('CSC613M Introduction to Intelligent Systems'.center(columns))
     print('DLSU 3rd Trimester A.Y. 2018-2019'.center(columns))
