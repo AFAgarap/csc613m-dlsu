@@ -29,21 +29,73 @@ random.seed(42)
 
 
 class Miner(object):
-    def __init__(self, row, col, num_rotate):
+    def __init__(self, row, col, num_rotate, num_move):
         self.row = row
         self.col = col
         self.marker = FACE_SOUTH
         self.num_rotate = num_rotate
+        self.num_move = num_move
+        self.visited_nodes = [[0, 0]]
 
-    def forward(self, cells):
-        if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1):
-            self.row += 1
-        elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1):
-            self.col += 1
-        elif self.marker == FACE_WEST and self.col > 0:
-            self.col -= 1
-        elif self.marker == FACE_NORTH and self.row > 0:
-            self.row -= 1
+    def forward(self, cells, grid):
+        while True:
+            self.rotate(cells)
+            if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                self.row += 1
+                break
+            elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                self.col += 1
+                break
+            elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                self.col -= 1
+                break
+            elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                self.row -= 1
+                break
+            if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
+               (grid[self.row + 1][self.col] == '-' and
+                grid[self.row - 1][self.col] == '-' and
+                grid[self.row][self.col + 1] == '-' and
+                grid[self.row][self.col - 1] == '-'):
+                return True
+            elif self.row == 0 and \
+                 ((grid[self.row][self.col + 1] == '-' and
+                   grid[self.row][self.col - 1] == '-' and
+                   grid[self.row + 1][self.col] == '-') or
+                  (grid[self.row + 1][self.col] == '-' and
+                   grid[self.row][self.col + 1] == '-') or
+                  (grid[self.row][self.col - 1] == '-' and
+                   grid[self.row + 1][self.col] == '-')):
+                return True
+            elif self.row == (cells - 1) and \
+                 ((grid[self.row - 1][self.col] == '-' and
+                   grid[self.row][self.col + 1] == '-') or
+                  (grid[self.row][self.col + 1] == '-' and
+                   grid[self.row][self.col - 1] == '-' and
+                   grid[self.row - 1][self.col] == '-') or
+                  (grid[self.row][self.col - 1] == '-' and
+                   grid[self.row - 1][self.col] == '-')):
+                return True
+            elif self.col == 0 and \
+                 ((grid[self.row][self.col + 1] == '-' and
+                   grid[self.row + 1][self.col] == '-' and
+                   grid[self.row - 1][self.col] == '-') or
+                  (grid[self.row + 1][self.col] == '-' and
+                   grid[self.row][self.col + 1] == '-') or
+                  (grid[self.row - 1][self.col] == '-' and
+                   grid[self.row][self.col + 1])):
+                return True
+            elif self.col == (cells - 1) and \
+                 ((grid[self.row][self.col - 1] == '-' and
+                   grid[self.row + 1][self.col] == '-' and
+                   grid[self.row - 1][self.col] == '-') or
+                  (grid[self.row - 1][self.col] == '-' and
+                   grid[self.row][self.col - 1] == '-') or
+                  (grid[self.row + 1][self.col] == '-' and
+                   grid[self.row][self.col - 1] == '-')):
+                return True
+        self.visited_nodes.append([self.row, self.col])
+        self.num_move += 1
 
     def rotate(self, cells):
         while True:
