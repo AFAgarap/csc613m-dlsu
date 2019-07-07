@@ -25,7 +25,7 @@ from utils.markers import FACE_NORTH
 from utils.markers import FACE_SOUTH
 from utils.markers import FACE_WEST
 
-# random.seed(1024)
+random.seed(1024)
 
 
 class Miner(object):
