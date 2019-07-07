@@ -25,7 +25,7 @@ from utils.markers import FACE_NORTH
 from utils.markers import FACE_SOUTH
 from utils.markers import FACE_WEST
 
-random.seed(42)
+# random.seed(1024)
 
 
 class Miner(object):
@@ -58,7 +58,7 @@ class Miner(object):
                 grid[self.row][self.col + 1] == '-' and
                 grid[self.row][self.col - 1] == '-'):
                 return True
-            elif self.row == 0 and \
+            elif self.row == 0 and self.col < (cells - 1) and \
                  ((grid[self.row][self.col + 1] == '-' and
                    grid[self.row][self.col - 1] == '-' and
                    grid[self.row + 1][self.col] == '-') or
@@ -76,7 +76,7 @@ class Miner(object):
                   (grid[self.row][self.col - 1] == '-' and
                    grid[self.row - 1][self.col] == '-')):
                 return True
-            elif self.col == 0 and \
+            elif self.col == 0 and self.row < (cells - 1) and \
                  ((grid[self.row][self.col + 1] == '-' and
                    grid[self.row + 1][self.col] == '-' and
                    grid[self.row - 1][self.col] == '-') or
