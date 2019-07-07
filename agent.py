@@ -40,22 +40,33 @@ class Miner(object):
             self.row += 1
         elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1):
             self.col += 1
-        elif self.marker == FACE_WEST and self.col > 0 and self.col > -1:
+        elif self.marker == FACE_WEST and self.col > 0:
             self.col -= 1
-        elif self.marker == FACE_NORTH and self.row > 0 and self.row > -1:
+        elif self.marker == FACE_NORTH and self.row > 0:
             self.row -= 1
 
-    def rotate(self):
-        face = random.randint(1, 4)
-        if face == 1:
-            self.marker = FACE_SOUTH
-        elif face == 2:
-            self.marker = FACE_EAST
-        elif face == 3:
-            self.marker = FACE_WEST
-        elif face == 4:
-            self.marker = FACE_NORTH
+    def rotate(self, cells):
+        while True:
+            face = random.randint(1, 4)
+            if face == 1 and self.row < (cells - 1):
+                self.marker = FACE_SOUTH
+                break
+            elif face == 2 and self.col < (cells - 1):
+                self.marker = FACE_EAST
+                break
+            elif face == 3 and self.col > 0:
+                self.marker = FACE_WEST
+                break
+            elif face == 4 and self.row > 0:
+                self.marker = FACE_NORTH
+                break
         self.num_rotate += 1
 
     def scan(self):
+        pass
+
+    def search(self):
+        pass
+
+    def manhattan(self):
         pass
