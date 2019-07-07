@@ -50,6 +50,8 @@ def main(arguments):
     while True:
 
         grid[miner.row][miner.col] = '-'
+        ret = miner.scan(cells, grid)
+        print('ret : {}'.format(ret))
         stuck = miner.forward(cells=cells, grid=grid)
 
         time.sleep(speed)
