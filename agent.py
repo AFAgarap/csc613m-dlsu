@@ -29,10 +29,11 @@ random.seed(42)
 
 
 class Miner(object):
-    def __init__(self, row, col):
+    def __init__(self, row, col, num_rotate):
         self.row = row
         self.col = col
         self.marker = FACE_SOUTH
+        self.num_rotate = num_rotate
 
     def forward(self, cells):
         if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1):
@@ -54,6 +55,7 @@ class Miner(object):
             self.marker = FACE_WEST
         elif face == 4:
             self.marker = FACE_NORTH
+        self.num_rotate += 1
 
     def scan(self):
         pass
