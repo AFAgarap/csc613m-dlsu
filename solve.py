@@ -23,7 +23,6 @@ import argparse
 from agent import Miner
 from environment import display
 from environment import setup
-import os
 import time
 from utils.config import get_speed
 
@@ -55,14 +54,11 @@ def main(arguments):
 
         time.sleep(speed)
 
-        os.system('clear')
-
         display(grid, miner, num_fail)
 
         if (miner.row == gold_row) and (miner.col == gold_col):
             break
         elif [miner.row, miner.col] in pit_xy or stuck:
-            os.system('clear')
             num_fail += 1
             miner = Miner(row=0, col=0, num_rotate=0, num_move=0)
             grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner,
