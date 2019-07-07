@@ -33,7 +33,7 @@ def setup(miner, cells):
     return grid, pit_xy, beacon_xy, gold_row, gold_col
 
 
-def display(grid, miner):
+def display(grid, miner, num_fail):
 
     grid[miner.row][miner.col] = miner.marker
 
@@ -48,3 +48,9 @@ def display(grid, miner):
             row_text += cell + ' '
         print(row_text.center(columns), end='')
         print()
+
+    print('\t|\tminer\t:\t[{}][{}]\t\t|'.format(miner.row, miner.col).center(columns // 3))
+    print('\t|\tgold\t:\t[{}][{}]\t\t|'.format(gold_row, gold_col).center(columns // 3))
+    print('\t|\t{:<6s}\t:\t{}\t\t|'.format('moves', miner.num_move).center(columns // 3))
+    print('\t|\trotate\t:\t{}\t\t|'.format(miner.num_rotate).center(columns // 3))
+    print('\t|\tfail\t:\t{}\t\t|'.format(num_fail).center(columns // 3))
