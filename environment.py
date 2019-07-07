@@ -49,8 +49,11 @@ def display(grid, miner, num_fail):
         print(row_text.center(columns), end='')
         print()
 
+    num_move = '0{}'.format(miner.num_move) if miner.num_move < 10 else miner.num_move
+    num_rotate = '0{}'.format(miner.num_rotate) if miner.num_rotate < 10 else miner.num_rotate
+    num_fail = '0{}'.format(num_fail) if num_fail < 10 else num_fail
     print('\t|\tminer\t:\t[{}][{}]\t\t|'.format(miner.row, miner.col).center(columns // 3))
     print('\t|\tgold\t:\t[{}][{}]\t\t|'.format(gold_row, gold_col).center(columns // 3))
-    print('\t|\t{:<6s}\t:\t{}\t\t|'.format('moves', miner.num_move).center(columns // 3))
-    print('\t|\trotate\t:\t{}\t\t|'.format(miner.num_rotate).center(columns // 3))
-    print('\t|\tfail\t:\t{}\t\t|'.format(num_fail).center(columns // 3))
+    print('\t|\t{:<6s}\t:\t{}\t\t|'.format('moves', num_move).center(columns // 3))
+    print('\t|\trotate\t:\t{}\t\t|'.format(num_rotate).center(columns // 3))
+    print('\t|\t{:<7s}\t:\t{}\t\t|'.format('fail', num_fail).center(columns // 3))
