@@ -35,7 +35,7 @@ class Miner(object):
         self.marker = FACE_SOUTH
         self.num_rotate = num_rotate
         self.num_move = num_move
-        self.visited_nodes = [[0, 0]]
+        self.visited_nodes = [[row, col]]
 
     def forward(self, cells, grid):
         while True:
