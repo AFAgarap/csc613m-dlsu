@@ -57,3 +57,9 @@ def display(grid, miner, num_fail):
     print('\t|\t{:<6s}\t:\t{}\t\t|'.format('moves', num_move).center(columns // 3))
     print('\t|\trotate\t:\t{}\t\t|'.format(num_rotate).center(columns // 3))
     print('\t|\t{:<7s}\t:\t{}\t\t|'.format('fail', num_fail).center(columns // 3))
+
+    row_text = ''
+    for index, node in enumerate(miner.visited_nodes):
+        row_text += ' -> {},{}'.format(node[0], node[1]) if 0 < index < len(miner.visited_nodes) -1 else ' -> {},{}'.format(node[0], node[1])
+        print(row_text.center(columns), end='')
+        print()
