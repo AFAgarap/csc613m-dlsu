@@ -50,11 +50,9 @@ def main(arguments):
     while True:
 
         grid[miner.row][miner.col] = '-'
-        ret = miner.scan(cells, grid)
-        print('ret : {}'.format(ret))
-        stuck = miner.forward(cells=cells, grid=grid)
+        stuck = miner.forward(cells=cells, grid=grid, level=2)
 
-        time.sleep(speed)
+#        time.sleep(speed)
 
         display(grid, miner, num_fail)
 
