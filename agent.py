@@ -25,9 +25,10 @@ from utils.markers import FACE_EAST
 from utils.markers import FACE_NORTH
 from utils.markers import FACE_SOUTH
 from utils.markers import FACE_WEST
+from utils.markers import GOLD
 from utils.markers import PIT
 
-random.seed(42)
+random.seed(111)
 
 
 class Miner(object):
@@ -53,7 +54,6 @@ class Miner(object):
         elif level == 1:
             while True:
                 self.rotate(cells)
-
                 if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
                     self.row += 1
                     break
@@ -66,111 +66,184 @@ class Miner(object):
                 elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
                     self.row -= 1
                     break
-
-                if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
-                   (grid[self.row + 1][self.col] == '-' and
-                    grid[self.row - 1][self.col] == '-' and
-                    grid[self.row][self.col + 1] == '-' and
-                    grid[self.row][self.col - 1] == '-'):
+                if self.is_stuck(cells, grid):
                     return True
-                elif self.row == 0 and self.col < (cells - 1) and \
-                     ((grid[self.row][self.col + 1] == '-' and
-                       grid[self.row][self.col - 1] == '-' and
-                       grid[self.row + 1][self.col] == '-') or
-                      (grid[self.row + 1][self.col] == '-' and
-                       grid[self.row][self.col + 1] == '-') or
-                      (grid[self.row][self.col - 1] == '-' and
-                       grid[self.row + 1][self.col] == '-')):
-                    return True
-                elif self.row == (cells - 1) and \
-                     ((grid[self.row - 1][self.col] == '-' and
-                       grid[self.row][self.col + 1] == '-') or
-                      (grid[self.row][self.col + 1] == '-' and
-                       grid[self.row][self.col - 1] == '-' and
-                       grid[self.row - 1][self.col] == '-') or
-                      (grid[self.row][self.col - 1] == '-' and
-                       grid[self.row - 1][self.col] == '-')):
-                    return True
-                elif self.col == 0 and self.row < (cells - 1) and \
-                     ((grid[self.row][self.col + 1] == '-' and
-                       grid[self.row + 1][self.col] == '-' and
-                       grid[self.row - 1][self.col] == '-') or
-                      (grid[self.row + 1][self.col] == '-' and
-                       grid[self.row][self.col + 1] == '-') or
-                      (grid[self.row - 1][self.col] == '-' and
-                       grid[self.row][self.col + 1])):
-                    return True
-                elif self.col == (cells - 1) and \
-                     ((grid[self.row][self.col - 1] == '-' and
-                       grid[self.row + 1][self.col] == '-' and
-                       grid[self.row - 1][self.col] == '-') or
-                      (grid[self.row - 1][self.col] == '-' and
-                       grid[self.row][self.col - 1] == '-') or
-                      (grid[self.row + 1][self.col] == '-' and
-                       grid[self.row][self.col - 1] == '-')):
-                    return True
+        elif level == 2:
+            peek, marker = self.scan(cells, grid)
+            if peek == -1:
+                while True:
+                    self.rotate(cells)
+#                    self.rotate(cells, override=marker, peek=peek)
+                    if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != PIT:
+                        self.row += 1
+                        break
+                    elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != PIT:
+                        self.col += 1
+                        break
+                    elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != PIT:
+                        self.col -= 1
+                        break
+                    elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != PIT:
+                        self.row -= 1
+                        break
+                    if self.is_stuck(cells, grid):
+                        return True
+            elif peek == 2:
+                while True:
+                    self.rotate(cells)
+#                    self.rotate(cells, override=marker, peek=peek)
+                    if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                        self.row += 1
+                        break
+                    elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                        self.col += 1
+                        break
+                    elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                        self.col -= 1
+                        break
+                    elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                        self.row -= 1
+                        break
+                    if self.is_stuck(cells, grid):
+                        return True
+            else:
+                while True:
+                    self.rotate(cells)
+                    if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                        self.row += 1
+                        break
+                    elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                        self.col += 1
+                        break
+                    elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                        self.col -= 1
+                        break
+                    elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                        self.row -= 1
+                        break
+                    if self.is_stuck(cells, grid):
+                        return True
 
         self.visited_nodes.append([self.row, self.col])
         self.num_move += 1
 
-    def rotate(self, cells):
-        while True:
-            face = random.randint(1, 4)
-            if face == 1 and self.row < (cells - 1):
+    def rotate(self, cells, override=0, peek=0):
+        if peek != -1 and override != 0:
+            if override == 1 and self.row < (cells - 1):
                 self.marker = FACE_SOUTH
-                break
-            elif face == 2 and self.col < (cells - 1):
+            elif override == 2 and self.col < (cells - 1):
                 self.marker = FACE_EAST
-                break
-            elif face == 3 and self.col > 0:
+            elif override == 3 and self.col > 0:
                 self.marker = FACE_WEST
-                break
-            elif face == 4 and self.row > 0:
+            elif override == 4 and self.row > 0:
                 self.marker = FACE_NORTH
-                break
+        elif peek == -1 and override != 0:
+            while True:
+                face = random.randint(1, 4)
+                if face != override and face == 1 and self.row < (cells - 1):
+                    self.marker = FACE_SOUTH
+                    break
+                elif face != override and face == 2 and self.col < (cells - 1):
+                    self.marker = FACE_EAST
+                    break
+                elif face != override and face == 3 and self.col > 0:
+                    self.marker = FACE_WEST
+                    break
+                elif face != override and face == 4 and self.row > 0:
+                    self.marker = FACE_NORTH
+                    break
+        else:
+            while True:
+                face = random.randint(1, 4)
+                if face == 1 and self.row < (cells - 1):
+                    self.marker = FACE_SOUTH
+                    break
+                elif face == 2 and self.col < (cells - 1):
+                    self.marker = FACE_EAST
+                    break
+                elif face == 3 and self.col > 0:
+                    self.marker = FACE_WEST
+                    break
+                elif face == 4 and self.row > 0:
+                    self.marker = FACE_NORTH
+                    break
         self.num_rotate += 1
 
     def scan(self, cells, grid):
         if self.marker == FACE_SOUTH:
-            pass
+            grid_transpose = list(map(list, zip(*grid)))[self.row]
+            for index, cell in enumerate(grid_transpose):
+                if cell == BEACON:
+                    return self.beacon_scan(grid_transpose[index + 1:]), 1
+                elif cell == PIT:
+                    return -1, 1
         elif self.marker == FACE_EAST:
-            pass
+            row = grid[self.row][self.col:]
+            for index, cell in enumerate(row):
+                if cell == BEACON:
+                    return self.beacon_scan(row[index + 1:]), 2
+                elif cell == PIT:
+                    return -1, 2
         elif self.marker == FACE_WEST:
-            pass
+            row = grid[self.row][:self.col + 1]
+            row_reversed = row[::-1]
+            for index, cell in enumerate(row_reversed):
+                if cell == BEACON:
+                    return self.beacon_scan(row_reversed[index + 1:]), 3
+                elif cell == PIT:
+                    return -1, 3
         elif self.marker == FACE_NORTH:
-            pass
-#         if self.row == 0 and self.col < (cells - 1):
-#             row_peek, col_peek = None, None
-#             row_values = [cell for cell in grid[self.row]]
-#             print('row : {}'.format(row_values))
-#             col_values = [row[self.col] for row in grid]
-#             print('col : {}'.format(col_values))
-#             if self.col > 0:
-#                 for index in range(self.col, -1, -1):
-#                     if row_values[index] == PIT or row_values[index] == BEACON:
-#                         row_peek = row_values[index]
-#                         break
-#             else:
-#                 for index
-#             for row_value in row_values:
-#                 if row_value == PIT or row_value == BEACON:
-#                     row_peek = row_value
-#                     break
-#             for col_value in col_values:
-#                 if col_value == PIT or col_value == BEACON:
-#                     col_peek = col_value
-#                     break
-#             self.row = 0
-#             self.col = 7
-#             return row_peek, col_peek
-#         elif (0 < self.row < (cells - 1)) and (0 < self.col < (cells - 1)):
-#             north_peek, south_peek, west_peek, east_peek = None, None, None, None
-#             east_values = [east_cell for east_cell in grid[self.row:]]
-#             west_values = [west_cell for west_cell in grid[ : self.row + 1]]
-#             # print(west_values)
-#             for east_value in east_values[self.row]:
-#                 print(east_value, end=' ')
-#                 if east_value == PIT or east_value == BEACON:
-#                     east_peek = east_value
-#                     print(east_peek)
-#                     break
+            grid_transpose_reversed = list(map(list, zip(*grid)))[self.row][::-1]
+            for index, cell in enumerate(grid_transpose_reversed):
+                if cell == BEACON:
+                    return self.beacon_scan(grid_transpose_reversed[index + 1:]), 4
+                elif cell == PIT:
+                    return -1, 4
+        return 0, 0
+
+    def beacon_scan(self, grid):
+        for cell in grid:
+            if cell == PIT:
+                return -1
+            elif cell == GOLD:
+                return 2
+
+    def is_stuck(self, cells, grid):
+        if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
+           (grid[self.row + 1][self.col] == '-' and
+            grid[self.row - 1][self.col] == '-' and
+            grid[self.row][self.col + 1] == '-' and
+            grid[self.row][self.col - 1] == '-'):
+            return True
+        elif (self.row == 0 and 0 <= self.col < (cells - 1)) and \
+             ((grid[self.row][self.col + 1] == '-' and
+               grid[self.row + 1][self.col] == '-') or
+              (grid[self.row + 1][self.col] == '-' and
+               grid[self.row][self.col + 1] == '-' and
+               grid[self.row][self.col - 1] == '-')):
+            return True
+        elif (self.row == 0 and self.col == (cells - 1)) and \
+             (grid[self.row + 1][self.col] == '-' and
+              grid[self.row][self.col - 1] == '-'):
+            return True
+        elif (self.row == (cells - 1) and 0 <= self.col < (cells - 1)) and \
+             ((grid[self.row - 1][self.col] == '-' and
+               grid[self.row][self.col + 1] == '-') or
+              (grid[self.row - 1][self.col] == '-' and
+               grid[self.row][self.col - 1] == '-' and
+               grid[self.row][self.col + 1] == '-')):
+            return True
+        elif (self.row == (cells - 1) and self.col == (cells - 1)) and \
+             (grid[self.row - 1][self.col] == '-' and
+              grid[self.row][self.col - 1] == '-'):
+            return True
+        elif (0 <= self.row < (cells - 1) and self.col == (cells - 1)) and \
+             (grid[self.row - 1][self.col] == '-' and
+              grid[self.row + 1][self.col] == '-' and
+              grid[self.row][self.col - 1] == '-'):
+            return True
+        elif (0 <= self.row < (cells - 1) and self.col == 0) and \
+             (grid[self.row - 1][self.col] == '-' and
+              grid[self.row + 1][self.col] == '-' and
+              grid[self.row][self.col + 1] == '-'):
+            return True
