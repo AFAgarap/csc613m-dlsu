@@ -32,11 +32,11 @@ We defined three levels of rationality for the agent to determine its path to th
 
 **Figure 1. The solution of strategy 0 to the path-finding problem, reaching the goal node in 18 moves after 10 attempts.**
 
-![](assets/config-1-level-1.png)
+![](assets/config-1-level-1.gif)
 
 **Figure 2. The solution of strategy 1 to the path-finding problem, reaching the goal node in 12 moves after 14 attempts.**
 
-![](assets/config-1-level-2.png)
+![](assets/config-1-level-2.gif)
 
 **Figure 3. The solution of strategy 2 to the path-finding problem, reaching the goal node in 10 moves after 2 attempts.**
 
@@ -48,15 +48,15 @@ We defined three levels of rationality for the agent to determine its path to th
 |1|103|146|784|
 |2|111|172|242|
 
-![](assets/config-2-level-0.png)
+![](assets/config-2-level-0.gif)
 
 **Figure 4. The solution of strategy 0 to the path-finding problem, reaching the goal node in 1697 moves after 14 attempts.**
 
-![](assets/config-1-level-1.png)
+![](assets/config-1-level-1.gif)
 
 **Figure 5. The solution of strategy 1 to the path-finding problem, reaching the goal node in 103 moves after 784 attempts.**
 
-![](assets/config-1-level-2.png)
+![](assets/config-1-level-2.gif)
 
 **Figure 6. The solution of strategy 2 to the path-finding problem, reaching the goal node in 111 moves after 242 attempts.**
 
@@ -68,15 +68,15 @@ We defined three levels of rationality for the agent to determine its path to th
 |1|98|148|860|
 |2|56|91|116|
 
-![](assets/config-2-level-0.png)
+![](assets/config-2-level-0.gif)
 
 **Figure 4. The solution of strategy 0 to the path-finding problem, reaching the goal node in 1718 moves after 1 attempt.**
 
-![](assets/config-1-level-1.png)
+![](assets/config-1-level-1.gif)
 
 **Figure 5. The solution of strategy 1 to the path-finding problem, reaching the goal node in 98 moves after 860 attempts.**
 
-![](assets/config-1-level-2.png)
+![](assets/config-1-level-2.gif)
 
 **Figure 6. The solution of strategy 2 to the path-finding problem, reaching the goal node in 56 moves after 116 attempts.**
 
