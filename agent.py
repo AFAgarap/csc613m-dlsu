@@ -120,38 +120,46 @@ class Miner(object):
         self.num_rotate += 1
 
     def scan(self, cells, grid):
-        if self.row == 0 and self.col < (cells - 1):
-            row_peek, col_peek = None, None
-            row_values = [cell for cell in grid[self.row]]
-            print('row : {}'.format(row_values))
-            col_values = [row[self.col] for row in grid]
-            print('col : {}'.format(col_values))
-            if self.col > 0:
-                for index in range(self.col, -1, -1):
-                    if row_values[index] == PIT or row_values[index] == BEACON:
-                        row_peek = row_values[index]
-                        break
-            else:
-                for index
-            for row_value in row_values:
-                if row_value == PIT or row_value == BEACON:
-                    row_peek = row_value
-                    break
-            for col_value in col_values:
-                if col_value == PIT or col_value == BEACON:
-                    col_peek = col_value
-                    break
-            self.row = 0
-            self.col = 7
-            return row_peek, col_peek
-#        elif (0 < self.row < (cells - 1)) and (0 < self.col < (cells - 1)):
-#            north_peek, south_peek, west_peek, east_peek = None, None, None, None
-#            east_values = [east_cell for east_cell in grid[self.row:]]
-#            west_values = [west_cell for west_cell in grid[ : self.row + 1]]
-#            # print(west_values)
-#            for east_value in east_values[self.row]:
-#                print(east_value, end=' ')
-#                if east_value == PIT or east_value == BEACON:
-#                    east_peek = east_value
-#                    print(east_peek)
-#                    break
+        if self.marker == FACE_SOUTH:
+            pass
+        elif self.marker == FACE_EAST:
+            pass
+        elif self.marker == FACE_WEST:
+            pass
+        elif self.marker == FACE_NORTH:
+            pass
+#         if self.row == 0 and self.col < (cells - 1):
+#             row_peek, col_peek = None, None
+#             row_values = [cell for cell in grid[self.row]]
+#             print('row : {}'.format(row_values))
+#             col_values = [row[self.col] for row in grid]
+#             print('col : {}'.format(col_values))
+#             if self.col > 0:
+#                 for index in range(self.col, -1, -1):
+#                     if row_values[index] == PIT or row_values[index] == BEACON:
+#                         row_peek = row_values[index]
+#                         break
+#             else:
+#                 for index
+#             for row_value in row_values:
+#                 if row_value == PIT or row_value == BEACON:
+#                     row_peek = row_value
+#                     break
+#             for col_value in col_values:
+#                 if col_value == PIT or col_value == BEACON:
+#                     col_peek = col_value
+#                     break
+#             self.row = 0
+#             self.col = 7
+#             return row_peek, col_peek
+#         elif (0 < self.row < (cells - 1)) and (0 < self.col < (cells - 1)):
+#             north_peek, south_peek, west_peek, east_peek = None, None, None, None
+#             east_values = [east_cell for east_cell in grid[self.row:]]
+#             west_values = [west_cell for west_cell in grid[ : self.row + 1]]
+#             # print(west_values)
+#             for east_value in east_values[self.row]:
+#                 print(east_value, end=' ')
+#                 if east_value == PIT or east_value == BEACON:
+#                     east_peek = east_value
+#                     print(east_peek)
+#                     break
