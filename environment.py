@@ -22,14 +22,18 @@ __author__ = 'Abien Fred Agarap'
 import os
 import shutil
 from utils.config import use_config_1
+from utils.config import use_config_2
+from utils.config import use_config_3
+from utils.config import use_config_4
 from utils.markers import BEACON
 from utils.markers import GOLD
 from utils.markers import PIT
 
 columns = shutil.get_terminal_size().columns
-pit_xy, beacon_xy, gold_row, gold_col = use_config_1()
+# pit_xy, beacon_xy, gold_row, gold_col = use_config_1()
 # pit_xy, beacon_xy, gold_row, gold_col = use_config_2()
-
+# pit_xy, beacon_xy, gold_row, gold_col = use_config_3()
+pit_xy, beacon_xy, gold_row, gold_col = use_config_4()
 
 def setup(miner, cells):
 
@@ -72,8 +76,8 @@ def display(grid, miner, num_fail):
     print('\t|\trotate\t:\t{}\t\t|'.format(num_rotate).center(columns // 3))
     print('\t|\t{:<7s}\t:\t{}\t\t|'.format('fail', num_fail).center(columns // 3))
 
-    row_text = ''
-    for index, node in enumerate(miner.visited_nodes):
-        row_text += ' -> {},{}'.format(node[0], node[1]) if 0 < index < len(miner.visited_nodes) -1 else ' -> {},{}'.format(node[0], node[1])
-        print(row_text.center(columns), end='')
-        print()
+#     row_text = ''
+#     for index, node in enumerate(miner.visited_nodes):
+#         row_text += ' -> {},{}'.format(node[0], node[1]) if 0 < index < len(miner.visited_nodes) -1 else ' -> {},{}'.format(node[0], node[1])
+#         print(row_text.center(columns), end='')
+#         print()
