@@ -48,15 +48,15 @@ We defined three levels of rationality for the agent to determine its path to th
 |1|103|146|784|
 |2|111|172|242|
 
-![](assets/config-2-level-0.gif)
+![](assets/config-2-level-0.png)
 
 **Figure 4. The solution of strategy 0 to the path-finding problem, reaching the goal node in 1697 moves after 14 attempts.**
 
-![](assets/config-2-level-1.gif)
+![](assets/config-2-level-1.png)
 
 **Figure 5. The solution of strategy 1 to the path-finding problem, reaching the goal node in 103 moves after 784 attempts.**
 
-![](assets/config-2-level-2.gif)
+![](assets/config-2-level-2.png)
 
 **Figure 6. The solution of strategy 2 to the path-finding problem, reaching the goal node in 111 moves after 242 attempts.**
 
