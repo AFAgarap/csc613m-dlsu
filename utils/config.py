@@ -49,3 +49,16 @@ def use_config_2():
     gold_row, gold_col = 22, 1
     return pit_xy, beacon_xy, gold_row, gold_col
 
+
+def use_config_3():
+    pit_xy = [[8, 17], [9, 17], [10, 18], [10, 19], [10, 21], [0, 19]]
+    beacon_xy = [[0, 26], [8, 20]]
+    gold_row, gold_col = 0, 20
+    return pit_xy, beacon_xy, gold_row, gold_col
+
+
+def use_config_4():
+    pit_xy = [[15, 19], [15, 20], [15, 21], [15, 23], [16, 18], [16, 24], [17, 19], [17, 20], [17, 21], [17, 23]]
+    beacon_xy = [[16, 21], [16, 23]]
+    gold_row, gold_col = 16, 19
+    return pit_xy, beacon_xy, gold_row, gold_col
