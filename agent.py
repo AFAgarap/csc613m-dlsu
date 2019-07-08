@@ -27,7 +27,7 @@ from utils.markers import FACE_SOUTH
 from utils.markers import FACE_WEST
 from utils.markers import PIT
 
-random.seed(1024)
+random.seed(42)
 
 
 class Miner(object):
@@ -39,65 +39,76 @@ class Miner(object):
         self.num_move = num_move
         self.visited_nodes = [[row, col]]
 
-    def forward(self, cells, grid):
-        while True:
+    def forward(self, cells, grid, level):
+        if level == 0:
             self.rotate(cells)
-
-            if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+            if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1):
                 self.row += 1
-                break
-            elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+            elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1):
                 self.col += 1
-                break
-            elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+            elif self.marker == FACE_WEST and self.col > 0:
                 self.col -= 1
-                break
-            elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+            elif self.marker == FACE_NORTH and self.row > 0:
                 self.row -= 1
-                break
+        elif level == 1:
+            while True:
+                self.rotate(cells)
 
-            if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
-               (grid[self.row + 1][self.col] == '-' and
-                grid[self.row - 1][self.col] == '-' and
-                grid[self.row][self.col + 1] == '-' and
-                grid[self.row][self.col - 1] == '-'):
-                return True
-            elif self.row == 0 and self.col < (cells - 1) and \
-                 ((grid[self.row][self.col + 1] == '-' and
-                   grid[self.row][self.col - 1] == '-' and
-                   grid[self.row + 1][self.col] == '-') or
-                  (grid[self.row + 1][self.col] == '-' and
-                   grid[self.row][self.col + 1] == '-') or
-                  (grid[self.row][self.col - 1] == '-' and
-                   grid[self.row + 1][self.col] == '-')):
-                return True
-            elif self.row == (cells - 1) and \
-                 ((grid[self.row - 1][self.col] == '-' and
-                   grid[self.row][self.col + 1] == '-') or
-                  (grid[self.row][self.col + 1] == '-' and
-                   grid[self.row][self.col - 1] == '-' and
-                   grid[self.row - 1][self.col] == '-') or
-                  (grid[self.row][self.col - 1] == '-' and
-                   grid[self.row - 1][self.col] == '-')):
-                return True
-            elif self.col == 0 and self.row < (cells - 1) and \
-                 ((grid[self.row][self.col + 1] == '-' and
-                   grid[self.row + 1][self.col] == '-' and
-                   grid[self.row - 1][self.col] == '-') or
-                  (grid[self.row + 1][self.col] == '-' and
-                   grid[self.row][self.col + 1] == '-') or
-                  (grid[self.row - 1][self.col] == '-' and
-                   grid[self.row][self.col + 1])):
-                return True
-            elif self.col == (cells - 1) and \
-                 ((grid[self.row][self.col - 1] == '-' and
-                   grid[self.row + 1][self.col] == '-' and
-                   grid[self.row - 1][self.col] == '-') or
-                  (grid[self.row - 1][self.col] == '-' and
-                   grid[self.row][self.col - 1] == '-') or
-                  (grid[self.row + 1][self.col] == '-' and
-                   grid[self.row][self.col - 1] == '-')):
-                return True
+                if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                    self.row += 1
+                    break
+                elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                    self.col += 1
+                    break
+                elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                    self.col -= 1
+                    break
+                elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                    self.row -= 1
+                    break
+
+                if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
+                   (grid[self.row + 1][self.col] == '-' and
+                    grid[self.row - 1][self.col] == '-' and
+                    grid[self.row][self.col + 1] == '-' and
+                    grid[self.row][self.col - 1] == '-'):
+                    return True
+                elif self.row == 0 and self.col < (cells - 1) and \
+                     ((grid[self.row][self.col + 1] == '-' and
+                       grid[self.row][self.col - 1] == '-' and
+                       grid[self.row + 1][self.col] == '-') or
+                      (grid[self.row + 1][self.col] == '-' and
+                       grid[self.row][self.col + 1] == '-') or
+                      (grid[self.row][self.col - 1] == '-' and
+                       grid[self.row + 1][self.col] == '-')):
+                    return True
+                elif self.row == (cells - 1) and \
+                     ((grid[self.row - 1][self.col] == '-' and
+                       grid[self.row][self.col + 1] == '-') or
+                      (grid[self.row][self.col + 1] == '-' and
+                       grid[self.row][self.col - 1] == '-' and
+                       grid[self.row - 1][self.col] == '-') or
+                      (grid[self.row][self.col - 1] == '-' and
+                       grid[self.row - 1][self.col] == '-')):
+                    return True
+                elif self.col == 0 and self.row < (cells - 1) and \
+                     ((grid[self.row][self.col + 1] == '-' and
+                       grid[self.row + 1][self.col] == '-' and
+                       grid[self.row - 1][self.col] == '-') or
+                      (grid[self.row + 1][self.col] == '-' and
+                       grid[self.row][self.col + 1] == '-') or
+                      (grid[self.row - 1][self.col] == '-' and
+                       grid[self.row][self.col + 1])):
+                    return True
+                elif self.col == (cells - 1) and \
+                     ((grid[self.row][self.col - 1] == '-' and
+                       grid[self.row + 1][self.col] == '-' and
+                       grid[self.row - 1][self.col] == '-') or
+                      (grid[self.row - 1][self.col] == '-' and
+                       grid[self.row][self.col - 1] == '-') or
+                      (grid[self.row + 1][self.col] == '-' and
+                       grid[self.row][self.col - 1] == '-')):
+                    return True
 
         self.visited_nodes.append([self.row, self.col])
         self.num_move += 1
