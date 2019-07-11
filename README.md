@@ -1,7 +1,9 @@
-A Simple Path-Finding Game System and Evaluation of its Performance
+Introduction to Intelligent Systems
 ===
 
-## Usage
+## A Simple Path-Finding Game System and Evaluation of its Performance
+
+### Usage
 
 This repository is optimized for UNIX-based systems.
 
@@ -11,7 +13,7 @@ $ cd csc613m-dlsu
 $ sudo apt-get install figlet
 ```
 
-## Levels of Rationality
+### Levels of Rationality
 
 We defined three levels of rationality for the agent to determine its path to the goal node.
 
@@ -79,4 +81,7 @@ We defined three levels of rationality for the agent to determine its path to th
 ![](assets/config-3-level-2.png)
 
 **Figure 6. The solution of strategy 2 to the path-finding problem, reaching the goal node in 56 moves after 116 attempts.**
+
+## An Enhanced Intelligent System and Evaluation of its Performance
+
 
