@@ -15,7 +15,6 @@ class BaseAgent(object):
             if gstatus > 0:
                 if tomark(gstatus) == self.mark:
                     return action
-        print(board)
         if board[0] == 2 and board[4] == 2 and board[8] == 0:
             return 8
         elif board[0] == 2 and board[1] == 2 and board[2] == 0:
