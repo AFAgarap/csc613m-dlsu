@@ -8,12 +8,12 @@ class BaseAgent(object):
     def __init__(self, mark):
         self.mark = mark
 
-    def act(self, board, state, ava_actions):
-        for action in ava_actions:
-            nstate = after_action_state(state, action)
-            gstatus = check_game_status(nstate[0])
-            if gstatus > 0:
-                if tomark(gstatus) == self.mark:
+    def act(self, board, state, available_actions):
+        for action in available_actions:
+            new_state = after_action_state(state, action)
+            game_status = check_game_status(new_state[0])
+            if game_status > 0:
+                if tomark(game_status) == self.mark:
                     return action
         if board[0] == 2 and board[4] == 2 and board[8] == 0:
             return 8
@@ -38,21 +38,21 @@ class BaseAgent(object):
         elif board[2] == 2 and board[8] == 2 and board[5] == 0:
             return 5
         else:
-            return random.choice(ava_actions)
+            return random.choice(available_actions)
 
 
 class HumanAgent(object):
     def __init__(self, mark):
         self.mark = mark
 
-    def act(self, ava_actions):
+    def act(self, available_actions):
         while True:
             uloc = input("Enter location[1-9], q for quit: ")
             if uloc.lower() == 'q':
                 return None
             try:
                 action = int(uloc) - 1
-                if action not in ava_actions:
+                if action not in available_actions:
                     raise ValueError()
             except ValueError:
                 print("Illegal location: '{}'".format(uloc))
