@@ -10,14 +10,14 @@ class BaseAgent(object):
     def __init__(self, mark):
         self.mark = mark
 
-    def act(self, board, state, ava_actions):
-        depth = len(ava_actions)
+    def act(self, board, state, available_actions):
+        depth = len(available_actions)
         if depth == 0 or check_game_status(board) >= 0:
             return
 
-        if len(ava_actions) < 9:
+        if len(available_actions) < 9:
             board = list(board)
-            return self.minimax(board, ava_actions, self.mark)[0]
+            return self.minimax(board, available_actions, self.mark)[0]
         else:
             if board[0] == 2 and board[4] == 2 and board[8] == 0:
                 return 8
@@ -42,10 +42,10 @@ class BaseAgent(object):
             elif board[2] == 2 and board[8] == 2 and board[5] == 0:
                 return 5
             else:
-                return random.choice(ava_actions)
+                return random.choice(available_actions)
 
-    def minimax(self, board, ava_actions, player):
-        depth = len(ava_actions)
+    def minimax(self, board, available_actions, player):
+        depth = len(available_actions)
 
         if player == self.mark:
             best = [-1, -infinity]
@@ -61,10 +61,10 @@ class BaseAgent(object):
             score = self.evaluate(board)
             return [-1, score]
 
-        for action in ava_actions:
+        for action in available_actions:
             board[action] = player
-            ava_actions.remove(action)
-            score = self.minimax(board, ava_actions, human if player == self.mark else player)
+            available_actions.remove(action)
+            score = self.minimax(board, available_actions, human if player == self.mark else player)
             board[action] = 0
             score[0] = action
 
@@ -89,14 +89,14 @@ class HumanAgent(object):
     def __init__(self, mark):
         self.mark = mark
 
-    def act(self, ava_actions):
+    def act(self, available_actions):
         while True:
             uloc = input("Enter location[1-9], q for quit: ")
             if uloc.lower() == 'q':
                 return None
             try:
                 action = int(uloc) - 1
-                if action not in ava_actions:
+                if action not in available_actions:
                     raise ValueError()
             except ValueError:
                 print("Illegal location: '{}'".format(uloc))
