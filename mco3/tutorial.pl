@@ -88,3 +88,23 @@ get_grandparent(X, Y) :-
     parent(Z, X),
     parent(Y, Z),
     format('the grandparent of ~w is ~w ~n', [X, Y]).
+
+blushes(X) :- human(X).
+human(derek).
+
+stabs(tybalt, mercutio, sword).
+hates(romeo, X) :- stabs(X, mercutio, sword).
+
+% anonymous variable is _
+% male(_).
+
+what_grade(5) :-
+    write('Go to kindergarten.').
+
+what_grade(6) :-
+    write('Go to 1st grade.').
+
+% operator is is the equal
+what_grade(Other) :-
+    Grade is Other - 5,
+    format('Go to grade ~w', [Grade]).
