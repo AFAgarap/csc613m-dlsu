@@ -1,0 +1,9 @@
+big(bear).
+big(elephant).
+small(cat).
+brown(bear).
+black(cat).
+not(big(bear)).
+grey(elephant).
+dark(Z) :- black(Z).
+dark(Z) :- brown(Z).
