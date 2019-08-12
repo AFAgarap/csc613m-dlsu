@@ -144,3 +144,20 @@ horizontal(line(point(X1, Y), point(X2, Y))).
 % rich(money, X) = rich(Y, no_debt).
 % X = no_debt
 % Y = money
+%
+
+warm_blooded(penguin).
+warm_blooded(human).
+
+produce_milk(penguin).
+produce_milk(human).
+
+have_feathers(penguin).
+have_hair(human).
+
+mammal(X) :-
+    warm_blooded(X),
+    produce_milk(X),
+    have_hair(X).
+
+% warm_blooded(X), produce_milk(X), write(X), nl.
