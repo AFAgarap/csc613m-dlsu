@@ -146,6 +146,8 @@ horizontal(line(point(X1, Y), point(X2, Y))).
 % Y = money
 %
 
+% trace.
+% notrace.
 warm_blooded(penguin).
 warm_blooded(human).
 
