@@ -163,3 +163,13 @@ mammal(X) :-
     have_hair(X).
 
 % warm_blooded(X), produce_milk(X), write(X), nl.
+
+% recursion
+% to check who are related to carl
+% related(Z, carl). 
+related(X, Y) :-
+    parent(X, Y).
+
+related(X, Y) :-
+    parent(X, Z),
+    related(Z, Y).
