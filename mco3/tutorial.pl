@@ -108,3 +108,21 @@ what_grade(6) :-
 what_grade(Other) :-
     Grade is Other - 5,
     format('Go to grade ~w', [Grade]).
+
+% structures
+% has(albert, olive).
+% owns(albert, pet(cat, X)).
+owns(albert, pet(cat, olive)).
+
+% query balance of sally
+% customer(sally, _, Bal).
+customer(tom, smith, 20.55).
+customer(sally, smith, 120.55).
+
+get_customer_balance(FName, LName) :-
+    customer(FName, LName, Bal),
+    write(FName), tab(1),
+    format('~w owes us $~2f ~n', [LName, Bal]).
+
+vertical(line(point(X, Y1), point(X, Y2))).
+horizontal(line(point(X1, Y), point(X2, Y))).
