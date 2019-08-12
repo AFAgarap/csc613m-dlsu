@@ -126,3 +126,21 @@ get_customer_balance(FName, LName) :-
 
 vertical(line(point(X, Y1), point(X, Y2))).
 horizontal(line(point(X1, Y), point(X2, Y))).
+
+% alice = alice.
+% 'alice' = alice.
+% \+ alice = albert.
+% \+ alice = alice.
+% 3 > 15.
+% 3 >= 15.
+% 3 =< 15.
+%
+% assign alice to W
+% W = alice.
+%
+% assign a variable to another
+% Rand1 = Rand2.
+%
+% rich(money, X) = rich(Y, no_debt).
+% X = no_debt
+% Y = money
