@@ -84,4 +84,4 @@ We defined three levels of rationality for the agent to determine its path to th
 
 ## An Enhanced Intelligent System and Evaluation of its Performance
 
-
+## Rule-based Diagnosis System for Skin Diseases
