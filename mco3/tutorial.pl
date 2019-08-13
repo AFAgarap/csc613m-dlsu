@@ -173,3 +173,20 @@ related(X, Y) :-
 related(X, Y) :-
     parent(X, Z),
     related(Z, Y).
+
+% math ops
+% X is 2 + 2.
+% X is (2 + 2).
+% (3 * 10) >= (50 / 2).
+% ; is the or operator
+% \+ (3 = 10).
+% 5 + 4 =:= 4 + 5.
+% 5 + 4 =\= 4 + 5.
+% X is mod(7, 2).
+
+double_digit(X, Y) :-
+    Y is X * 2.
+
+generate_random_number :-
+    random(0, 10, X),
+    format('random number X = ~w ~n', [X]).
