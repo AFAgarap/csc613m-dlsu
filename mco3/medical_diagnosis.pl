@@ -120,6 +120,20 @@ hypothesis(contact_dermatitis) :-
     symptom(burning),
     symptom(oozing).
 
+hypothesis(chicken_pox) :-
+    nl, write('Diagnosis for chicken pox.'), nl,
+    symptom(fever),
+    symptom(chills),
+    symptom(body_ache),
+    symptom(rash).
+
+hypothesis(warts) :-
+    nl, write('Diagnosis for common warts.'), nl,
+    symptom(grainy_bumps),
+    symptom(flesh_tan),
+    symptom(rough_touch),
+    symptom(sprinkled).
+
 response(Reply) :-
     read(Reply).
 
@@ -445,5 +459,35 @@ symptom(dry_scaly) :-
 
 symptom(burning) :-
     write('Does the patient suffer from burning? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(chills) :-
+    write('Does the patient have chills? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(body_ache) :-
+    write('Does the patient have body ache? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(grainy_bumps) :-
+    write('Does the patient have small, flesh, grainy bumps? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(flesh_tan) :-
+    write('Does the patient have flesh-colored, white, pink, or tan on fingers and/or hands? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(rough_touch) :-
+    write('Does the patient have fingers and/or hands that are rought to touch? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(sprinkled) :-
+    write('Does the patient have fingers and/or hands that are sprinkled with black pinpoints, which are small, clotted blood vessels? (y/n) '),
     response(Reply),
     Reply='y'.
