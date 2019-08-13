@@ -21,7 +21,7 @@ hypothesis(acne) :-
     symptom(pimples),
     symptom(papules),
     symptom(nodules),
-    sympton(cystic_lesions).
+    symptom(cystic_lesion).
 
 hypothesis(cold_sore) :-
     nl, write('Diagnosis for cold sore.'), nl,
@@ -33,7 +33,7 @@ hypothesis(hives) :-
     nl, write('Diagnosis for hives.'), nl,
     symptom(flesh_colored),
     symptom(intensely_itchy),
-    symptom(rougly_oval),
+    symptom(roughly_oval),
     symptom(one_inch).
 
 hypothesis(latex_allergy) :-
@@ -96,6 +96,30 @@ hypothesis(squamous_cell_carcinoma) :-
     symptom(red_sore),
     symptom(raise_patch).
 
+hypothesis(lupus) :-
+    nl, write('Diagnosis for lupus.'), nl,
+    symptom(fever),
+    symptom(fatigue),
+    symptom(joint_pain),
+    symptom(butterfly_rash),
+    symptom(skin_lesion),
+    symptom(raynaud_phenomenon),
+    symptom(shortness_breath),
+    symptom(chest_pain),
+    symptom(dry_eyes),
+    symptom(headaches).
+
+hypothesis(contact_dermatitis) :-
+    nl, write('Diagnosis for contact dermatitis.'), nl,
+    symptom(swelling),
+    symptom(tenderness),
+    symptom(red_rash),
+    symptom(itching),
+    symptom(dry_scaly),
+    symptom(blisters),
+    symptom(burning),
+    symptom(oozing).
+
 response(Reply) :-
     read(Reply).
 
@@ -150,7 +174,7 @@ symptom(cystic_lesion) :-
     Reply='y'.
 
 symptom(tingling) :-
-    write('Does the patient suffer from itching? (y/n) '),
+    write('Does the patient suffer from tingling and itching? (y/n) '),
     response(Reply),
     Reply='y'.
 
@@ -174,7 +198,7 @@ symptom(intensely_itchy) :-
     response(Reply),
     Reply='y'.
 
-symptom(rougly_oval) :-
+symptom(roughly_oval) :-
     write('Are the patient\'s welts roughly oval or shaped like a worm? (y/n) '),
     response(Reply),
     Reply='y'.
@@ -361,5 +385,65 @@ symptom(red_sore) :-
 
 symptom(raise_patch) :-
     write('Does the patient have a red, raised patch or wartlike sore on or in the anus or on their genitals? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(fatigue) :-
+    write('Does the patient suffer from fatigue? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(joint_pain) :-
+    write('Does the patient suffer from joint pain, swelling, and stifness? (y/n)'),
+    response(Reply),
+    Reply='y'.
+
+symptom(butterfly_rash) :-
+    write('Does the patient have butterfly-shaped rash on the face that covers the cheeks and bridge of the nose or rashes elsewhere on the body? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(skin_lesion) :-
+    write('Does the patient suffer from skin lesions that appear or worsen with sun exposure (photosensitivity)? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(raynaud_phenomenon) :-
+    write('Does the patient have fingers and toes that turn white or blue when exposed to cold or during stressful periods (Raynaud\'s phenomenon)? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(shortness_breath) :-
+    write('Does the patient suffer from shortness of breath? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(chest_pain) :-
+    write('Does the patient suffer from chest pain? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(dry_eyes) :-
+    write('Does the patient have dry eyes? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(headaches) :-
+    write('Does the patient have headaches? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(red_rash) :-
+    write('Does the patient have red rash? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(dry_scaly) :-
+    write('Does the patient have dry, cracked, scaly skin? (y/n) '),
+    response(Reply),
+    Reply='y'.
+
+symptom(burning) :-
+    write('Does the patient suffer from burning? (y/n) '),
     response(Reply),
     Reply='y'.
