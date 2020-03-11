@@ -25,7 +25,7 @@ class HumanAgent(object):
     def act(self, available_actions):
         while True:
             uloc = input("Enter location[1-9], q for quit: ")
-            if uloc.lower() == 'q':
+            if uloc.lower() == "q":
                 return None
             try:
                 action = int(uloc) - 1

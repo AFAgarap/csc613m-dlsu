@@ -16,8 +16,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-__version__ = '1.0.0'
-__author__ = 'Abien Fred Agarap'
+__version__ = "1.0.0"
+__author__ = "Abien Fred Agarap"
 
 import argparse
 from agent import Miner
@@ -28,12 +28,24 @@ from utils.config import get_speed
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Miner')
-    group = parser.add_argument_group('Arguments')
-    group.add_argument('-c', '--cells', required=False, type=int, default=8,
-                       help='the size of the environment')
-    group.add_argument('-x', '--speed', required=False, type=int, default=1,
-                       help='the speed of display refresh')
+    parser = argparse.ArgumentParser(description="Miner")
+    group = parser.add_argument_group("Arguments")
+    group.add_argument(
+        "-c",
+        "--cells",
+        required=False,
+        type=int,
+        default=8,
+        help="the size of the environment",
+    )
+    group.add_argument(
+        "-x",
+        "--speed",
+        required=False,
+        type=int,
+        default=1,
+        help="the speed of display refresh",
+    )
     arguments = parser.parse_args()
     return arguments
 
@@ -49,10 +61,10 @@ def main(arguments):
 
     while True:
 
-        grid[miner.row][miner.col] = '-'
+        grid[miner.row][miner.col] = "-"
         stuck = miner.forward(cells=cells, grid=grid, level=2)
 
-#        time.sleep(speed)
+        #        time.sleep(speed)
 
         display(grid, miner, num_fail)
 
@@ -61,11 +73,10 @@ def main(arguments):
         elif [miner.row, miner.col] in pit_xy or stuck:
             num_fail += 1
             miner = Miner(row=0, col=0, num_rotate=0, num_move=0)
-            grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner,
-                                                                cells=cells)
+            grid, pit_xy, beacon_xy, gold_row, gold_col = setup(miner, cells=cells)
             display(grid, miner, num_fail)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     arguments = parse_args()
     main(arguments)

@@ -38,10 +38,10 @@ class BaseAgent(object):
         else:
             best = [-1, +infinity]
 
-        if self.mark == 'X':
-            human = 'O'
-        elif self.mark == 'O':
-            human = 'X'
+        if self.mark == "X":
+            human = "O"
+        elif self.mark == "O":
+            human = "X"
 
         if depth == 0 or check_game_status(board) >= 0:
             score = self.evaluate(board)
@@ -50,7 +50,9 @@ class BaseAgent(object):
         for action in available_actions:
             board[action] = 1 if player == self.mark else 2
             available_actions.remove(action)
-            score = self.minimax(board, available_actions, human if player == self.mark else player)
+            score = self.minimax(
+                board, available_actions, human if player == self.mark else player
+            )
             board[action] = 0
             score[0] = action
 
@@ -104,7 +106,7 @@ class HumanAgent(object):
     def act(self, available_actions):
         while True:
             uloc = input("Enter location[1-9], q for quit: ")
-            if uloc.lower() == 'q':
+            if uloc.lower() == "q":
                 return None
             try:
                 action = int(uloc) - 1

@@ -16,8 +16,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-__version__ = '1.0.0'
-__author__ = 'Abien Fred Agarap'
+__version__ = "1.0.0"
+__author__ = "Abien Fred Agarap"
 
 import random
 from utils.markers import BEACON
@@ -54,16 +54,32 @@ class Miner(object):
         elif level == 1:
             while True:
                 self.rotate(cells)
-                if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                if (
+                    self.marker == FACE_SOUTH
+                    and 0 <= self.row < (cells - 1)
+                    and grid[self.row + 1][self.col] != "-"
+                ):
                     self.row += 1
                     break
-                elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                elif (
+                    self.marker == FACE_EAST
+                    and 0 <= self.col < (cells - 1)
+                    and grid[self.row][self.col + 1] != "-"
+                ):
                     self.col += 1
                     break
-                elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                elif (
+                    self.marker == FACE_WEST
+                    and self.col > 0
+                    and grid[self.row][self.col - 1] != "-"
+                ):
                     self.col -= 1
                     break
-                elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                elif (
+                    self.marker == FACE_NORTH
+                    and self.row > 0
+                    and grid[self.row - 1][self.col] != "-"
+                ):
                     self.row -= 1
                     break
                 if self.is_stuck(cells, grid):
@@ -73,17 +89,33 @@ class Miner(object):
             if peek == -1:
                 while True:
                     self.rotate(cells)
-#                    self.rotate(cells, override=marker, peek=peek)
-                    if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != PIT:
+                    #                    self.rotate(cells, override=marker, peek=peek)
+                    if (
+                        self.marker == FACE_SOUTH
+                        and 0 <= self.row < (cells - 1)
+                        and grid[self.row + 1][self.col] != PIT
+                    ):
                         self.row += 1
                         break
-                    elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != PIT:
+                    elif (
+                        self.marker == FACE_EAST
+                        and 0 <= self.col < (cells - 1)
+                        and grid[self.row][self.col + 1] != PIT
+                    ):
                         self.col += 1
                         break
-                    elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != PIT:
+                    elif (
+                        self.marker == FACE_WEST
+                        and self.col > 0
+                        and grid[self.row][self.col - 1] != PIT
+                    ):
                         self.col -= 1
                         break
-                    elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != PIT:
+                    elif (
+                        self.marker == FACE_NORTH
+                        and self.row > 0
+                        and grid[self.row - 1][self.col] != PIT
+                    ):
                         self.row -= 1
                         break
                     if self.is_stuck(cells, grid):
@@ -91,17 +123,33 @@ class Miner(object):
             elif peek == 2:
                 while True:
                     self.rotate(cells)
-#                    self.rotate(cells, override=marker, peek=peek)
-                    if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                    #                    self.rotate(cells, override=marker, peek=peek)
+                    if (
+                        self.marker == FACE_SOUTH
+                        and 0 <= self.row < (cells - 1)
+                        and grid[self.row + 1][self.col] != "-"
+                    ):
                         self.row += 1
                         break
-                    elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                    elif (
+                        self.marker == FACE_EAST
+                        and 0 <= self.col < (cells - 1)
+                        and grid[self.row][self.col + 1] != "-"
+                    ):
                         self.col += 1
                         break
-                    elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                    elif (
+                        self.marker == FACE_WEST
+                        and self.col > 0
+                        and grid[self.row][self.col - 1] != "-"
+                    ):
                         self.col -= 1
                         break
-                    elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                    elif (
+                        self.marker == FACE_NORTH
+                        and self.row > 0
+                        and grid[self.row - 1][self.col] != "-"
+                    ):
                         self.row -= 1
                         break
                     if self.is_stuck(cells, grid):
@@ -109,16 +157,32 @@ class Miner(object):
             else:
                 while True:
                     self.rotate(cells)
-                    if self.marker == FACE_SOUTH and 0 <= self.row < (cells - 1) and grid[self.row + 1][self.col] != '-':
+                    if (
+                        self.marker == FACE_SOUTH
+                        and 0 <= self.row < (cells - 1)
+                        and grid[self.row + 1][self.col] != "-"
+                    ):
                         self.row += 1
                         break
-                    elif self.marker == FACE_EAST and 0 <= self.col < (cells - 1) and grid[self.row][self.col + 1] != '-':
+                    elif (
+                        self.marker == FACE_EAST
+                        and 0 <= self.col < (cells - 1)
+                        and grid[self.row][self.col + 1] != "-"
+                    ):
                         self.col += 1
                         break
-                    elif self.marker == FACE_WEST and self.col > 0 and grid[self.row][self.col - 1] != '-':
+                    elif (
+                        self.marker == FACE_WEST
+                        and self.col > 0
+                        and grid[self.row][self.col - 1] != "-"
+                    ):
                         self.col -= 1
                         break
-                    elif self.marker == FACE_NORTH and self.row > 0 and grid[self.row - 1][self.col] != '-':
+                    elif (
+                        self.marker == FACE_NORTH
+                        and self.row > 0
+                        and grid[self.row - 1][self.col] != "-"
+                    ):
                         self.row -= 1
                         break
                     if self.is_stuck(cells, grid):
@@ -174,29 +238,29 @@ class Miner(object):
             grid_transpose = list(map(list, zip(*grid)))[self.row]
             for index, cell in enumerate(grid_transpose):
                 if cell == BEACON:
-                    return self.beacon_scan(grid_transpose[index + 1:]), 1
+                    return self.beacon_scan(grid_transpose[index + 1 :]), 1
                 elif cell == PIT:
                     return -1, 1
         elif self.marker == FACE_EAST:
-            row = grid[self.row][self.col:]
+            row = grid[self.row][self.col :]
             for index, cell in enumerate(row):
                 if cell == BEACON:
-                    return self.beacon_scan(row[index + 1:]), 2
+                    return self.beacon_scan(row[index + 1 :]), 2
                 elif cell == PIT:
                     return -1, 2
         elif self.marker == FACE_WEST:
-            row = grid[self.row][:self.col + 1]
+            row = grid[self.row][: self.col + 1]
             row_reversed = row[::-1]
             for index, cell in enumerate(row_reversed):
                 if cell == BEACON:
-                    return self.beacon_scan(row_reversed[index + 1:]), 3
+                    return self.beacon_scan(row_reversed[index + 1 :]), 3
                 elif cell == PIT:
                     return -1, 3
         elif self.marker == FACE_NORTH:
             grid_transpose_reversed = list(map(list, zip(*grid)))[self.row][::-1]
             for index, cell in enumerate(grid_transpose_reversed):
                 if cell == BEACON:
-                    return self.beacon_scan(grid_transpose_reversed[index + 1:]), 4
+                    return self.beacon_scan(grid_transpose_reversed[index + 1 :]), 4
                 elif cell == PIT:
                     return -1, 4
         return 0, 0
@@ -209,41 +273,58 @@ class Miner(object):
                 return 2
 
     def is_stuck(self, cells, grid):
-        if 0 < self.row < (cells - 1) and 0 < self.col < (cells - 1) and \
-           (grid[self.row + 1][self.col] == '-' and
-            grid[self.row - 1][self.col] == '-' and
-            grid[self.row][self.col + 1] == '-' and
-            grid[self.row][self.col - 1] == '-'):
+        if (
+            0 < self.row < (cells - 1)
+            and 0 < self.col < (cells - 1)
+            and (
+                grid[self.row + 1][self.col] == "-"
+                and grid[self.row - 1][self.col] == "-"
+                and grid[self.row][self.col + 1] == "-"
+                and grid[self.row][self.col - 1] == "-"
+            )
+        ):
             return True
-        elif (self.row == 0 and 0 <= self.col < (cells - 1)) and \
-             ((grid[self.row][self.col + 1] == '-' and
-               grid[self.row + 1][self.col] == '-') or
-              (grid[self.row + 1][self.col] == '-' and
-               grid[self.row][self.col + 1] == '-' and
-               grid[self.row][self.col - 1] == '-')):
+        elif (self.row == 0 and 0 <= self.col < (cells - 1)) and (
+            (
+                grid[self.row][self.col + 1] == "-"
+                and grid[self.row + 1][self.col] == "-"
+            )
+            or (
+                grid[self.row + 1][self.col] == "-"
+                and grid[self.row][self.col + 1] == "-"
+                and grid[self.row][self.col - 1] == "-"
+            )
+        ):
             return True
-        elif (self.row == 0 and self.col == (cells - 1)) and \
-             (grid[self.row + 1][self.col] == '-' and
-              grid[self.row][self.col - 1] == '-'):
+        elif (self.row == 0 and self.col == (cells - 1)) and (
+            grid[self.row + 1][self.col] == "-" and grid[self.row][self.col - 1] == "-"
+        ):
             return True
-        elif (self.row == (cells - 1) and 0 <= self.col < (cells - 1)) and \
-             ((grid[self.row - 1][self.col] == '-' and
-               grid[self.row][self.col + 1] == '-') or
-              (grid[self.row - 1][self.col] == '-' and
-               grid[self.row][self.col - 1] == '-' and
-               grid[self.row][self.col + 1] == '-')):
+        elif (self.row == (cells - 1) and 0 <= self.col < (cells - 1)) and (
+            (
+                grid[self.row - 1][self.col] == "-"
+                and grid[self.row][self.col + 1] == "-"
+            )
+            or (
+                grid[self.row - 1][self.col] == "-"
+                and grid[self.row][self.col - 1] == "-"
+                and grid[self.row][self.col + 1] == "-"
+            )
+        ):
             return True
-        elif (self.row == (cells - 1) and self.col == (cells - 1)) and \
-             (grid[self.row - 1][self.col] == '-' and
-              grid[self.row][self.col - 1] == '-'):
+        elif (self.row == (cells - 1) and self.col == (cells - 1)) and (
+            grid[self.row - 1][self.col] == "-" and grid[self.row][self.col - 1] == "-"
+        ):
             return True
-        elif (0 <= self.row < (cells - 1) and self.col == (cells - 1)) and \
-             (grid[self.row - 1][self.col] == '-' and
-              grid[self.row + 1][self.col] == '-' and
-              grid[self.row][self.col - 1] == '-'):
+        elif (0 <= self.row < (cells - 1) and self.col == (cells - 1)) and (
+            grid[self.row - 1][self.col] == "-"
+            and grid[self.row + 1][self.col] == "-"
+            and grid[self.row][self.col - 1] == "-"
+        ):
             return True
-        elif (0 <= self.row < (cells - 1) and self.col == 0) and \
-             (grid[self.row - 1][self.col] == '-' and
-              grid[self.row + 1][self.col] == '-' and
-              grid[self.row][self.col + 1] == '-'):
+        elif (0 <= self.row < (cells - 1) and self.col == 0) and (
+            grid[self.row - 1][self.col] == "-"
+            and grid[self.row + 1][self.col] == "-"
+            and grid[self.row][self.col + 1] == "-"
+        ):
             return True

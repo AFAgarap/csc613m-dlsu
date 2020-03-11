@@ -7,6 +7,7 @@ import json
 from collections import defaultdict
 import click
 from tqdm import tqdm as _tqdm
+
 tqdm = _tqdm
 
 from gym_tictactoe.env import TicTacToeEnv
@@ -23,7 +24,7 @@ from human_agent import HumanAgent
 DEFAULT_VALUE = 0
 EPISODE_CNT = 17000
 BENCH_EPISODE_CNT = 3000
-MODEL_FILE = 'best_td_agent.dat'
+MODEL_FILE = "best_td_agent.dat"
 EPSILON = 0.08
 ALPHA = 0.4
 CWD = os.path.dirname(os.path.abspath(__file__))
@@ -104,19 +105,23 @@ class TDAgent(object):
             nval = self.ask_value(nstate)
             ava_values.append(nval)
             vcnt = st_visits[nstate]
-            logging.debug("  nstate {} val {:0.2f} visits {}".
-                          format(nstate, nval, vcnt))
+            logging.debug(
+                "  nstate {} val {:0.2f} visits {}".format(nstate, nval, vcnt)
+            )
 
         # select most right action for 'O' or 'X'
-        if self.mark == 'O':
+        if self.mark == "O":
             indices = best_val_indices(ava_values, max)
         else:
             indices = best_val_indices(ava_values, min)
 
         # tie breaking by random choice
         aidx = random.choice(indices)
-        logging.debug("greedy_action mark {} ava_values {} indices {} aidx {}".
-                      format(self.mark, ava_values, indices, aidx))
+        logging.debug(
+            "greedy_action mark {} ava_values {} indices {} aidx {}".format(
+                self.mark, ava_values, indices, aidx
+            )
+        )
 
         action = ava_actions[aidx]
 
@@ -139,7 +144,7 @@ class TDAgent(object):
             val = DEFAULT_VALUE
             # win
             if gstatus > 0:
-                val = O_REWARD if self.mark == 'O' else X_REWARD
+                val = O_REWARD if self.mark == "O" else X_REWARD
             set_state_value(state, val)
         return st_values[state]
 
@@ -153,8 +158,9 @@ class TDAgent(object):
             nstate (tuple): Next state
             reward (int): Immediate reward from action
         """
-        logging.debug("backup state {} nstate {} reward {}".
-                      format(state, nstate, reward))
+        logging.debug(
+            "backup state {} nstate {} reward {}".format(state, nstate, reward)
+        )
 
         val = self.ask_value(state)
         nval = self.ask_value(nstate)
@@ -166,7 +172,7 @@ class TDAgent(object):
 
 
 @click.group()
-@click.option('-v', '--verbose', count=True, help="Increase verbosity.")
+@click.option("-v", "--verbose", count=True, help="Increase verbosity.")
 @click.pass_context
 def cli(ctx, verbose):
     global tqdm
@@ -177,14 +183,32 @@ def cli(ctx, verbose):
 
 
 @cli.command(help="Learn and save the model.")
-@click.option('-p', '--episode', "max_episode", default=EPISODE_CNT,
-              show_default=True, help="Episode count.")
-@click.option('-e', '--epsilon', "epsilon", default=EPSILON,
-              show_default=True, help="Exploring factor.")
-@click.option('-a', '--alpha', "alpha", default=ALPHA,
-              show_default=True, help="Step size.")
-@click.option('-f', '--save-file', default=MODEL_FILE, show_default=True,
-              help="Save model data as file name.")
+@click.option(
+    "-p",
+    "--episode",
+    "max_episode",
+    default=EPISODE_CNT,
+    show_default=True,
+    help="Episode count.",
+)
+@click.option(
+    "-e",
+    "--epsilon",
+    "epsilon",
+    default=EPSILON,
+    show_default=True,
+    help="Exploring factor.",
+)
+@click.option(
+    "-a", "--alpha", "alpha", default=ALPHA, show_default=True, help="Step size."
+)
+@click.option(
+    "-f",
+    "--save-file",
+    default=MODEL_FILE,
+    show_default=True,
+    help="Save model data as file name.",
+)
 def learn(max_episode, epsilon, alpha, save_file):
     _learn(max_episode, epsilon, alpha, save_file)
 
@@ -204,10 +228,9 @@ def _learn(max_episode, epsilon, alpha, save_file):
     reset_state_values()
 
     env = TicTacToeEnv()
-    agents = [TDAgent('O', epsilon, alpha),
-              TDAgent('X', epsilon, alpha)]
+    agents = [TDAgent("O", epsilon, alpha), TDAgent("X", epsilon, alpha)]
 
-    start_mark = 'O'
+    start_mark = "O"
     for i in tqdm(range(max_episode)):
         episode = i + 1
         env.show_episode(False, episode)
@@ -245,23 +268,22 @@ def _learn(max_episode, epsilon, alpha, save_file):
 
 
 def save_model(save_file, max_episode, epsilon, alpha):
-    with open(save_file, 'wt') as f:
+    with open(save_file, "wt") as f:
         # write model info
-        info = dict(type="td", max_episode=max_episode, epsilon=epsilon,
-                    alpha=alpha)
+        info = dict(type="td", max_episode=max_episode, epsilon=epsilon, alpha=alpha)
         # write state values
-        f.write('{}\n'.format(json.dumps(info)))
+        f.write("{}\n".format(json.dumps(info)))
         for state, value in st_values.items():
             vcnt = st_visits[state]
-            f.write('{}\t{:0.3f}\t{}\n'.format(state, value, vcnt))
+            f.write("{}\t{:0.3f}\t{}\n".format(state, value, vcnt))
 
 
 def load_model(filename):
-    with open(filename, 'rb') as f:
+    with open(filename, "rb") as f:
         # read model info
-        info = json.loads(f.readline().decode('ascii'))
+        info = json.loads(f.readline().decode("ascii"))
         for line in f:
-            elms = line.decode('ascii').split('\t')
+            elms = line.decode("ascii").split("\t")
             state = eval(elms[0])
             val = eval(elms[1])
             vcnt = eval(elms[2])
@@ -271,12 +293,19 @@ def load_model(filename):
 
 
 @cli.command(help="Play with human.")
-@click.option('-f', '--load-file', default=MODEL_FILE, show_default=True,
-              help="Load file name.")
-@click.option('-n', '--show-number', is_flag=True, default=False,
-              show_default=True, help="Show location number when play.")
+@click.option(
+    "-f", "--load-file", default=MODEL_FILE, show_default=True, help="Load file name."
+)
+@click.option(
+    "-n",
+    "--show-number",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Show location number when play.",
+)
 def play(load_file, show_number):
-    _play(load_file, HumanAgent('O'), show_number)
+    _play(load_file, HumanAgent("O"), show_number)
 
 
 def _play(load_file, vs_agent, show_number):
@@ -293,8 +322,8 @@ def _play(load_file, vs_agent, show_number):
     """
     load_model(load_file)
     env = TicTacToeEnv(show_number=show_number)
-    td_agent = TDAgent('X', 0, 0)  # prevent exploring
-    start_mark = 'O'
+    td_agent = TDAgent("X", 0, 0)  # prevent exploring
+    start_mark = "O"
     agents = [vs_agent, td_agent]
 
     while True:
@@ -305,8 +334,8 @@ def _play(load_file, vs_agent, show_number):
         done = False
 
         # show start board for human agent
-        if mark == 'O':
-            env.render(mode='human')
+        if mark == "O":
+            env.render(mode="human")
 
         while not done:
             agent = agent_by_mark(agents, mark)
@@ -323,7 +352,7 @@ def _play(load_file, vs_agent, show_number):
 
             state, reward, done, info = env.step(action)
 
-            env.render(mode='human')
+            env.render(mode="human")
             if done:
                 env.show_result(True, mark, reward)
                 break
@@ -334,5 +363,5 @@ def _play(load_file, vs_agent, show_number):
         start_mark = next_mark(start_mark)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

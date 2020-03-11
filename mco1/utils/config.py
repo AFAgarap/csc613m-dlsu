@@ -16,14 +16,17 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-__version__ = '1.0.0'
-__author__ = 'Abien Fred Agarap'
+__version__ = "1.0.0"
+__author__ = "Abien Fred Agarap"
 
 
 def get_speed(rate):
-    assert -1 <= rate <= 3, \
-        'Expected value for speed : [-1 <= speed <= 3], \
-        but given {}.'.format(rate)
+    assert (
+        -1 <= rate <= 3
+    ), "Expected value for speed : [-1 <= speed <= 3], \
+        but given {}.".format(
+        rate
+    )
     if rate == 0:
         return 5e-1
     elif rate == 1:
@@ -58,7 +61,18 @@ def use_config_3():
 
 
 def use_config_4():
-    pit_xy = [[15, 19], [15, 20], [15, 21], [15, 23], [16, 18], [16, 24], [17, 19], [17, 20], [17, 21], [17, 23]]
+    pit_xy = [
+        [15, 19],
+        [15, 20],
+        [15, 21],
+        [15, 23],
+        [16, 18],
+        [16, 24],
+        [17, 19],
+        [17, 20],
+        [17, 21],
+        [17, 23],
+    ]
     beacon_xy = [[16, 21], [16, 23]]
     gold_row, gold_col = 16, 19
     return pit_xy, beacon_xy, gold_row, gold_col

@@ -13,7 +13,7 @@ class HumanAgent(object):
     def act(self, ava_actions):
         while True:
             uloc = input("Enter location[1-9], q for quit: ")
-            if uloc.lower() == 'q':
+            if uloc.lower() == "q":
                 return None
             try:
                 action = int(uloc) - 1
@@ -28,12 +28,17 @@ class HumanAgent(object):
 
 
 @click.command(help="Play human agent.")
-@click.option('-n', '--show-number', is_flag=True, default=False,
-              show_default=True, help="Show location number in the board.")
+@click.option(
+    "-n",
+    "--show-number",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Show location number in the board.",
+)
 def play(show_number):
     env = TicTacToeEnv(show_number=show_number)
-    agents = [HumanAgent('O'),
-              HumanAgent('X')]
+    agents = [HumanAgent("O"), HumanAgent("X")]
     episode = 0
     while True:
         state = env.reset()
@@ -50,7 +55,7 @@ def play(show_number):
 
             state, reward, done, info = env.step(action)
 
-            print('')
+            print("")
             env.render()
             if done:
                 env.show_result(True, mark, reward)
@@ -60,5 +65,5 @@ def play(show_number):
         episode += 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     play()

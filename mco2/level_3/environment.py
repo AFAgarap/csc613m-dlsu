@@ -3,16 +3,16 @@ import logging
 import gym
 from gym import spaces
 
-CODE_MARK_MAP = {0: ' ', 1: 'O', 2: 'X'}
+CODE_MARK_MAP = {0: " ", 1: "O", 2: "X"}
 NUM_LOC = 9
 O_REWARD = 1
 X_REWARD = -1
 NO_REWARD = 0
 
-LEFT_PAD = '  '
-LOG_FMT = logging.Formatter('%(levelname)s '
-                            '[%(filename)s:%(lineno)d] %(message)s',
-                            '%Y-%m-%d %H:%M:%S')
+LEFT_PAD = "  "
+LOG_FMT = logging.Formatter(
+    "%(levelname)s " "[%(filename)s:%(lineno)d] %(message)s", "%Y-%m-%d %H:%M:%S"
+)
 
 
 def tomark(code):
@@ -20,11 +20,11 @@ def tomark(code):
 
 
 def tocode(mark):
-    return 1 if mark == 'O' else 2
+    return 1 if mark == "O" else 2
 
 
 def next_mark(mark):
-    return 'X' if mark == 'O' else 'O'
+    return "X" if mark == "O" else "O"
 
 
 def agent_by_mark(agents, mark):
@@ -65,10 +65,10 @@ def check_game_status(board):
     """
     for t in [1, 2]:
         for j in range(0, 9, 3):
-            if [t] * 3 == [board[i] for i in range(j, j+3)]:
+            if [t] * 3 == [board[i] for i in range(j, j + 3)]:
                 return t
         for j in range(0, 3):
-            if board[j] == t and board[j+3] == t and board[j+6] == t:
+            if board[j] == t and board[j + 3] == t and board[j + 6] == t:
                 return t
         if board[0] == t and board[4] == t and board[8] == t:
             return t
@@ -85,13 +85,13 @@ def check_game_status(board):
 
 
 class TicTacToeEnv(gym.Env):
-    metadata = {'render.modes': ['human']}
+    metadata = {"render.modes": ["human"]}
 
     def __init__(self, alpha=0.02, show_number=False):
         self.action_space = spaces.Discrete(NUM_LOC)
         self.observation_space = spaces.Discrete(NUM_LOC)
         self.alpha = alpha
-        self.set_start_mark('O')
+        self.set_start_mark("O")
         self.show_number = show_number
         self.seed()
         self.reset()
@@ -127,13 +127,15 @@ class TicTacToeEnv(gym.Env):
         # place
         self.board[loc] = tocode(self.mark)
         status = check_game_status(self.board)
-        logging.debug("check_game_status board {} mark '{}'"
-                      " status {}".format(self.board, self.mark, status))
+        logging.debug(
+            "check_game_status board {} mark '{}'"
+            " status {}".format(self.board, self.mark, status)
+        )
         if status >= 0:
             self.done = True
             if status in [1, 2]:
                 # always called by self
-                reward = O_REWARD if self.mark == 'O' else X_REWARD
+                reward = O_REWARD if self.mark == "O" else X_REWARD
 
         # switch turn
         self.mark = next_mark(self.mark)
@@ -142,15 +144,15 @@ class TicTacToeEnv(gym.Env):
     def _get_obs(self):
         return tuple(self.board), self.mark
 
-    def render(self, mode='human', close=False):
+    def render(self, mode="human", close=False):
         if close:
             return
-        if mode == 'human':
+        if mode == "human":
             self._show_board(print)  # NOQA
-            print('')
+            print("")
         else:
             self._show_board(logging.info)
-            logging.info('')
+            logging.info("")
 
     def show_episode(self, human, episode):
         self._show_episode(print if human else logging.warning, episode)
@@ -161,12 +163,17 @@ class TicTacToeEnv(gym.Env):
     def _show_board(self, showfn):
         """Draw tictactoe board."""
         for j in range(0, 9, 3):
+
             def mark(i):
-                return tomark(self.board[i]) if not self.show_number or\
-                    self.board[i] != 0 else str(i+1)
-            showfn(LEFT_PAD + '|'.join([mark(i) for i in range(j, j+3)]))
+                return (
+                    tomark(self.board[i])
+                    if not self.show_number or self.board[i] != 0
+                    else str(i + 1)
+                )
+
+            showfn(LEFT_PAD + "|".join([mark(i) for i in range(j, j + 3)]))
             if j < 6:
-                showfn(LEFT_PAD + '-----')
+                showfn(LEFT_PAD + "-----")
 
     def show_turn(self, human, mark):
         self._show_turn(print if human else logging.info, mark)
@@ -185,7 +192,7 @@ class TicTacToeEnv(gym.Env):
         else:
             msg = "Winner is '{}'!".format(tomark(status))
             showfn("==== Finished: {} ====".format(msg))
-        showfn('')
+        showfn("")
 
     def available_actions(self):
         return [i for i, c in enumerate(self.board) if c == 0]
